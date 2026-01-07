@@ -8,6 +8,8 @@ const create = async (req,res) => {
             email:req.body.email,
             password:req.body.password
         });
+        // const user = result.toJSON();
+        delete result.password;
         return res.status(201).json({
             data:result,
             success:true,
