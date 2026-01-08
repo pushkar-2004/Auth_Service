@@ -38,6 +38,20 @@ class UserRepository {
         }
     }
 
+    async getByEmail(emailId){
+        try {
+            const user = await User.findOne({
+                where:{
+                    email:emailId
+                }
+            });
+            return user;
+        } catch (error) {
+            console.log("something went wrong while getByEmail in repository");
+            throw error;
+        }
+    }
+
 };
 
 module.exports = UserRepository;

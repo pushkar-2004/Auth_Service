@@ -5,4 +5,5 @@ dotenv.config();
 
 module.exports = {
     PORT : process.env.PORT,
+    JWT_AUTH : process.env.JWT_AUTH
 };

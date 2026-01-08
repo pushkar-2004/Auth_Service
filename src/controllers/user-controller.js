@@ -1,10 +1,10 @@
 const UserService = require('../services/user-server')
 
-const userController = new UserService();
+const userService = new UserService();
 
 const create = async (req,res) => {
     try {
-        const result = await userController.create({
+        const result = await userService.create({
             email:req.body.email,
             password:req.body.password
         });
@@ -26,6 +26,28 @@ const create = async (req,res) => {
     }
 }
 
+const signIn = async (req,res) => {
+    try {
+        // console.log(req.body);
+        const result = await userService.signIn(req.body.email,req.body.password);
+        // console.log(" result is =" ,result)
+        return res.status(200).json({
+            success:true,
+            data:result,
+            message:"SignIn successfull",
+            error:{}
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message:'Something went wrong in SignIn controller',
+            success:false,
+            err:error,
+            data:{}
+        });
+    }
+}
+
 module.exports = {
     create,
+    signIn
 }
