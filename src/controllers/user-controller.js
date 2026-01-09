@@ -1,4 +1,4 @@
-const UserService = require('../services/user-server')
+const UserService = require('../services/user-service')
 
 const userService = new UserService();
 
@@ -67,8 +67,28 @@ const isAuthenticated = async (req,res) => {
     }
 }
 
+const isAdmin = async (req,res) =>{
+    try {
+        const result = await userService.isAdmin(req.body.userId);
+        return res.status(200).json({
+            success:true,
+            data:result,
+            message:"isAdmin validation successfull",
+            error:{}
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            data:{},
+            error:"Something went inside the user controller isAdmin",
+            message:"check if userid is present in req body"
+        });
+    }
+}
+
 module.exports = {
     create,
     signIn,
-    isAuthenticated
-}
+    isAuthenticated,
+    isAdmin,
+};

@@ -1,3 +1,1 @@
-module.exports = {
-    validateUserAuth:require('./auth-request-validator')
-};
+module.exports = require('./auth-request-validator');

@@ -1,4 +1,4 @@
-const {User} = require('../models/index');
+const {User,Role} = require('../models/index');
 
 class UserRepository {
 
@@ -48,6 +48,22 @@ class UserRepository {
             return user;
         } catch (error) {
             console.log("something went wrong while getByEmail in repository");
+            throw error;
+        }
+    }
+
+    async isAdmin(userId){
+        try {
+            const user = await User.findByPk(userId);
+            const adminRole = await Role.findOne({
+                where:{
+                    name:'ADMIN'
+                }
+            }); 
+            const response = await user.hasRole(adminRole);
+            return response;
+        } catch (error) {
+            console.log('Something went inide the isAdmin repository');
             throw error;
         }
     }
